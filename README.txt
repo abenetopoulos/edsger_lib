@@ -1,6 +1,8 @@
 To build : 
 >./libs.sh
 
+A file called 'lib.a' is generated
+
 ----------------------------------------------------------------------------------
 abs : di -> ax
 atan : xmm0 -> xmm0

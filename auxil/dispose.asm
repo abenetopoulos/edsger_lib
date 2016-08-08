@@ -11,7 +11,7 @@
 
                 
             section   .code
-            global    _dispose
+            global    __dispose
 
-_dispose:
+__dispose:
              ret                ; do nothing !!!
