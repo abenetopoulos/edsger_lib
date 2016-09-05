@@ -6,13 +6,13 @@
             global _round
 
 _round      push    rbp
-            sub     rsp, 32
-            movupd  [rbp-24], xmm0   
-            fld     tword [rbp-24]      ; @Important: for our purposes, the size specifier should be 'tword'
+            mov     rbp, rsp
+            sub     rsp, 8
+            fld     tword [rbp+16]      ; @Important: for our purposes, the size specifier should be 'tword'
             frndint
             fistp   word [rbp-8]
             mov     ax, word [rbp-8]
             and     rax, 0xffff
-            add     rsp, 32
+            add     rsp, 8
             pop     rbp
             ret

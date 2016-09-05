@@ -6,7 +6,7 @@
               section .code
               global _ord
 
-_ord          push   rbp
+_ord          push  rbp
               mov   rbp, rsp
               mov   al, dil
               xor   ah, ah

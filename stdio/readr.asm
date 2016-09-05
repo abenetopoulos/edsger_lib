@@ -18,6 +18,7 @@ REALSIZE      equ 10
 _readReal   push    rbp
             mov     rbp, rsp
             push    rsi
+            sub     rsp, 16
             mov     rdi, MAXSTRING
             lea     rsi, [inpstr]
             call    _readString
@@ -26,7 +27,10 @@ _readReal   push    rbp
             mov     rdi, rsi            ; buffer as first argument
             mov     r8, 10              ; base 10
             call    _parseReal          ; result in xmm0
+            movupd  [rbp-16], xmm0
+            fld     tword [rbp-16]
             
+            add     rsp, 16
             pop     rsi
             pop     rbp
             ret

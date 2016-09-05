@@ -13,6 +13,7 @@ _writeReal:
             mov     rbp, rsp
             push    rdi
             push    rsi
+            movupd  xmm0, [rbp+16]
 
             mov     r8, 0x00050000
             lea     rdi, [buffer]

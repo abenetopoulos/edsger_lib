@@ -11,14 +11,9 @@
 
 _tan        push    rbp
             mov     rbp, rsp
-            sub     rsp, 32
-            movupd  [rbp-24], xmm0   
-            fld     tword [rbp-24]      ; @Important: for our purposes, the size specifier should be 'tword'
+            fld     tword [rbp+16]
             fptan
             ffree   st0                 ; pop the 1.0 that is
             fincstp                     ; pushed by fptan
-            fstp    tword [rbp-24]      ; store result
-            movupd  xmm0, [rbp-24]      ; output is expected on xmm0
-            add     rsp, 32
             pop     rbp
             ret

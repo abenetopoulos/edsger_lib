@@ -142,6 +142,6 @@ _parseReal:
 intPart     resb INTSIZE
 expPart     resb INTSIZE
 aux         resb 4
-fraction    resb 4
-divisor     resb 4
+fraction    resb 8
+divisor     resb 8
 sign        resb 1

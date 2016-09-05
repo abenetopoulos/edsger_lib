@@ -10,7 +10,6 @@
 _trunc      push    rbp
             mov     rbp, rsp
             sub     rsp, 32
-            movupd  [rbp-24], xmm0   
             fstcw   [rbp-28]            ; get FPU control word
             fwait
             mov     ax, word [rbp-28]   ; store it
@@ -20,7 +19,7 @@ _trunc      push    rbp
             mov     word [rbp-28], ax
             fldcw   [rbp-28]
             fwait
-            fld     qword [rbp-24]      ; @Important: for our purposes, the size specifier should be 'tword'
+            fld     tword [rbp+16]
             frndint                     
             fistp   word [rbp-8]
             pop     rax                 ; restore control word
