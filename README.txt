@@ -5,33 +5,33 @@ A file called 'lib.a' is generated
 
 ----------------------------------------------------------------------------------
 abs : di -> ax
-atan : xmm0 -> xmm0
-cos : xmm0 -> xmm0
-exp : xmm0 -> xmm0
-fabs : xmm0 -> xmm0
-ln : xmm0 -> xmm0
-pi : - -> xmm0
-sin : xmm0 -> xmm0
-sqrt : xmm0 -> xmm0
-tan : xmm0 -> xmm0
+atan : stack -> st0
+cos : stack -> st0
+exp : stack -> st0
+fabs : stack -> st0
+ln : stack -> st0
+pi : - -> st0
+sin : stack -> st0
+sqrt : stack -> st0
+tan : stack -> st0
 
 readBoolean : - -> al
 readCharacter : - -> al
 readInteger : - -> ax
-readReal : - -> xmm0
+readReal : - -> st0
 readString : rdi (size), rsi (pointer to char array) -> -
 writeBoolean : dil -> -
 writeCharacter : dil -> -
 writeInteger : di -> -
-writeReal : xmm0 -> -
+writeReal : stack -> -
 writeString : rdi (pointer to char array) -> -
 
 
 chr : dil -> al
 exit : di -> -
 ord : dil -> ax
-round : xmm0 -> ax
-trunc : xmm0 -> ax
+round : stack -> ax
+trunc : stack -> ax
 
 strcat : rdi (pointer to target array), rsi (pointer to source array) -> -
 strcmp : rdi (pointer to target array), rsi (pointer to source array) -> ax
