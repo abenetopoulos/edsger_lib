@@ -18,6 +18,7 @@ _formatInteger:
             mov     rbp, rsp
             push    rdi
             push    rsi
+            push    rbx
             mov     rdx, 0
             mov     r8, 0
             mov     ax, si
@@ -57,6 +58,7 @@ nextDigit:
 
 finish:
             mov     byte [rdi], 0x0
+            pop     rbx
             pop     rsi
             pop     rdi
             pop     rbp

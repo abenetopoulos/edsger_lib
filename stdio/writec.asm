@@ -17,7 +17,7 @@ normal:
             mov     rax, 1                 ; write syscall
             mov     rdi, 1                 ; to stdout
             lea     rsi, [rsp]             ; location of character to print in mem
-            mov     rdx, 2                 ; print 1 character
+            mov     rdx, 1                 ; print 1 character
             syscall
             add     rsp,2
 ok:
