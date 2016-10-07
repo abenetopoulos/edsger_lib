@@ -12,7 +12,7 @@ _readChar   push    rbp
             push    rdi
             sub     rsp, 4
             mov     rsi, rsp                  ; store on stack
-            mov     rdx, 1                    ; read single character
+            mov     rdx, 2                    ; read single character
             mov     rdi, 0                    ; from stdin
             mov     rax, 0                    ; using the read() syscall
             syscall
