@@ -12,6 +12,7 @@ INTSIZE     equ 2
 
                 section   .text
                 global    _readInteger
+                extern    _readChar
                 extern    _readString
                 extern    _parseInteger
 
@@ -20,8 +21,10 @@ _readInteger    push    rbp
                 push    rsi
                 mov     rdi, MAXSTRING
                 lea     rsi, [inpstr]
+                call    .ignoreMaybeNL
                 call    _readString              ; Read a string
                 
+                dec     rsi
                 mov     rdi, rsi                 ; buffer as first argument
                 lea     rsi, [readint]           ; location of read integer in memory
                 mov     r8, 10                   ; base = 10
@@ -30,6 +33,17 @@ _readInteger    push    rbp
                 xor     rax, rax
                 mov     ax, word [rsi]
                 pop     rsi
+                pop     rbp
+                ret
+
+.ignoreMaybeNL:
+                push    rbp
+                mov     rbp, rsp
+                push    rsi
+                call    _readChar
+                pop     rsi
+                mov     byte [rsi], al
+                inc     rsi
                 pop     rbp
                 ret
 
