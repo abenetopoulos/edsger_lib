@@ -8,11 +8,14 @@
 
 _abs    push    rbp
         mov     rbp, rsp
-        mov     ax, di              ; 1st parameter
-        or      ax, ax              ; If it is negative
+		xor     rax, rax
+        mov     eax, edi              ; 1st parameter
+        or      eax, eax              ; If it is negative
         jge     ok
-        neg     ax                  ; i = -i
+        neg     eax                  ; i = -i
 ok:
-        and     rax, 0xffff
+		xor     rbx, rbx
+		mov     ebx, 0xffffffff
+        and     eax, ebx
         pop     rbp
         ret
