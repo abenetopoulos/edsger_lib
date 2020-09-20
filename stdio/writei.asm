@@ -12,8 +12,9 @@ _writeInteger   push    rbp
                 mov     rbp, rsp
                 push    rdi
                 push    rsi
-                
-                mov     rsi, rdi 
+               
+			    xor     rsi, rsi
+                mov     esi, edi 
                 lea     rdi, [buffer]
                 call    _formatInteger
                 
