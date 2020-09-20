@@ -31,7 +31,7 @@ _readInteger    push    rbp
                 call    _parseInteger            ; result in rax
 
                 xor     rax, rax
-                mov     ax, word [rsi]
+                mov     rax, qword [rsi]
                 pop     rsi
                 pop     rbp
                 ret

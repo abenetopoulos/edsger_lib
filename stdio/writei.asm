@@ -27,4 +27,4 @@ _writeInteger   push    rbp
                 ret
 
                 section .bss
-buffer  resb 7 
+buffer  resb 32 
