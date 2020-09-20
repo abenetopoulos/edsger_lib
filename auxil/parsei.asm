@@ -14,9 +14,11 @@
 
 _parseInteger:
         push    rbp
-        mov	    rbp, rsp
+        mov	rbp, rsp
         push    rdi                     ;push non-volatile regs
         push    rsi
+	push    rdx
+	push    rcx
         xor     rax, rax                ;number of chars read
         xor     r9, r9                  ;temp result storage
         mov     r11b, 0                 ;sign flag (perhaps an entire reg is too much?)
@@ -41,7 +43,8 @@ _parseInteger:
         and     r10,0xff
         imul    r9, 10
         add     r9, r10
-        cmp     r9w, 0x8000
+        mov     rdx, 0x80000000
+	cmp     r9, rdx
         ja     .overflow
         inc     rax
         jmp     .nextChar
@@ -51,19 +54,22 @@ _parseInteger:
 .applySign:
         cmp     r11b, 1
         jne     .checkPosOver
-        cmp     r9w, 0x8000
+        cmp     r9, rdx
         je      .finish
-        neg     r9w
+        neg     r9
         jmp     .finish
 .checkPosOver:
-        cmp     r9w, 0x7fff
+	mov     rcx, 0x7fffffff
+        cmp     r9, rcx
         jbe     .finish
 .overflow:
         mov     r9, 0x00
         mov     rax, -1
 .finish: 
-        pop     rsi
-        mov     word [rsi], r9w
+	pop 	rcx
+	pop 	rdx
+	pop 	rsi
+        mov     qword [rsi], r9
         pop     rdi
         pop     rbp
         ret

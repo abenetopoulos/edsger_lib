@@ -21,40 +21,39 @@ _formatInteger:
             push    rbx
             mov     rdx, 0
             mov     r8, 0
-            mov     ax, si
-            and     ax, 0x8000         
+            mov     eax, esi
+	    shr     eax, 31
+	    and     al, 1  
             jz      prepare
-            not     si
-            inc     si
+	    not     esi
+            inc     esi
+
             mov     byte [rdi], CHAR_MINUS
             inc     rdi
 prepare:
-            mov     ax, 10000
-            mov     cx, 0
-            mov     bx, 0
-digit:
-            cmp     si, ax
-            jb      mWriteDigit
-            inc     bx
-            sub     si, ax
-            jmp     digit
-mWriteDigit:
-            cmp     bx, 0
-            jne     writeDigit
-            cmp     r8, 0
-            je      nextDigit
-writeDigit:
-            call    near writeDigitToMemory
-nextDigit:
-            mov     bx, 10
-            div     bx
-            cmp     ax, 0
-            je      finish
-            mov     bx, 0
-            cmp     ax, 1
-            jne     digit
-            mov     r8, 1
-            jmp     digit
+	    mov edx, 0
+	    mov eax, esi
+	    mov ebx, 0xa  
+	    mov rcx, 0x1   ; we keep here a counter for units in order to loop ..
+    
+find_units_10:
+	    div ebx
+	    push dx   ; store units in stack
+	    cmp eax, 0 ; quotient is not zero yet so keep finding units
+	    je writeDigitToMemory
+	    inc cx    ; count units
+	    mov edx, 0
+	    jmp find_units_10
+    
+writeDigitToMemory:
+	    pop dx    ; load from store units one  by one 
+	    add dx, 30h ; convert to ascii in order to print it
+	    mov byte [rdi], dl 
+	    inc rdi
+	    loop writeDigitToMemory  ; loop for all digits (that's why we kept counter in cx)
+   
+
+
 
 finish:
             mov     byte [rdi], 0x0
@@ -66,14 +65,4 @@ finish:
             and     rax, 0xff
             ret
 
-writeDigitToMemory:
-            push    rbp
-            mov     rbp, rsp
-            mov     r8, 1
-            add     bl, 0x30
-            mov     byte [rdi], bl
-            inc     rdi
-            inc     cx
-            mov     bx, 0
-            pop     rbp
-            ret
+
